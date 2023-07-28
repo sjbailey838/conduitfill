@@ -90,18 +90,23 @@
             <th>Cables Assigned</th>
             <!-- <th>Cable Rating</th> -->
         </tr>
-        {%for conduit in conduitruns%}
+        {% for conduitrun in conduitruns %}
         <tr>
-    
-            <td>{{conduit.conduittag}} </td>
-            <td>{{conduit.conduit.InnerDimension}} </td>
-            <td>{{conduit.cable }}</td>
-        {%endfor%}
+            <td>{{conduitrun.conduittag}} </td>
+            <td>{{conduitrun.conduit.InnerDimension}} </td>
+            <td>
+                {% for conduitrun_cable in conduitrun.cable.all %}
+                    {{ conduitrun_cable }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+
 
         <!-- {%for cable in cablelist%}
-        {%endfor%} -->
-            <!-- <td>{{cable.rating}} </td> -->
-            <!-- {{ forloop.counter0 }} -->
+        {%endfor%}
+            <td>{{cable.rating}} </td>
+            {{ forloop.counter0 }} -->
         </tr>
 
     </table>
