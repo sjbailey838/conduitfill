@@ -1,0 +1,113 @@
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title%}
+{% block content %}
+
+
+{% if user.is_authenticated %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{form}}
+    <button name="addcable" value="addcable">Add Cable</button>
+</form>   
+    <div>
+        <br>
+        <h5>These are the standard library cables</h5>
+    <table border="1">
+        <tr>
+            <th>Cable Name</th>
+            <th>Cable Size</th>
+            <th>Cable Conductors</th>
+            <th>Cable Rating</th>
+        </tr>
+        {%for cable in cables%}
+        <tr>
+            <td>{{cable.name}} </td>
+            <td>{{cable.size}} </td>
+            <td>{{cable.conductors}} </td>
+            <td>{{cable.rating}} </td>
+        </tr>
+        {%endfor%}
+    </table>
+    <br>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form1}}
+        <button name="addconduit" value="addconduit">Add Conduit</button>
+    </form>  
+    <h5>These are the standard library conduit</h5>
+    <table border="1">
+        <tr>
+            <th>Conduit Part Number</th>
+            <th>Conduit Inner Dimension</th>
+            <th>Conduit Outer Dimension</th>
+        </tr>
+        {%for conduit in conduits%}
+        <tr>
+            <td>{{conduit.name}} </td>
+            <td>{{conduit.InnerDimension}} </td>
+            <td>{{conduit.OuterDimension}}   </td>
+        </tr>
+        {%endfor%}
+    </table>
+    <br>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form2}}
+        <button name="projectcable" value="projectcable">Add Project Cable</button>
+    </form>  
+    <h5>These are your project cables</h5>
+    <table border="1">
+        <tr>
+            <th>Cable Tag</th>
+            <th>Cable Length</th>
+            <th>Cable Name</th>
+            <th>Cable Size</th>
+            <th>Cable Rating</th>
+            <th>Cable Conductors</th>
+        </tr>
+        {%for cable in cableruns%}
+        <tr>
+            <td>{{cable.cabletag}} </td>
+            <td>{{cable.length}} </td>
+            <td>{{cable.cable.name}} </td>
+            <td>{{cable.cable.size}} </td>
+            <td>{{cable.cable.rating}} </td>
+            <td>{{cable.cable.conductors}} </td>
+        </tr>
+        {%endfor%}
+    </table>
+    <br>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form3}}
+        <button name="projectconduit" value="projectconduit">Add Project Conduit</button>
+    </form>  
+    <h5>These are your project conduits</h5>
+    <table border="1">
+        <tr>
+            <th>Conduit Tag</th>
+            <th>Conduit Inner Dimension</th>
+            <th>Cables Assigned</th>
+            <!-- <th>Cable Rating</th> -->
+        </tr>
+        {%for conduit in conduitruns%}
+        <tr>
+    
+            <td>{{conduit.conduittag}} </td>
+            <td>{{conduit.conduit.InnerDimension}} </td>
+            <td>{{conduit.cable }}</td>
+        {%endfor%}
+
+        <!-- {%for cable in cablelist%}
+        {%endfor%} -->
+            <!-- <td>{{cable.rating}} </td> -->
+            <!-- {{ forloop.counter0 }} -->
+        </tr>
+
+    </table>
+    </div>
+
+{% else %}
+<a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Sign in</a>
+{% endif %}
+{% endblock content %}
