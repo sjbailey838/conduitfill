@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from .models import Profile,User
 
-from .models import Profile, Cable, CableRun, Conduit, ConduitRun
+
 
 
 class RegisterForm(UserCreationForm):
@@ -87,23 +88,5 @@ class UpdateProfileForm(forms.ModelForm):
         model = Profile
         fields = ['avatar', 'bio']
 
-class CableForm(forms.ModelForm):
-    class Meta:
-        model = Cable
-        fields = '__all__'
 
-class CableRunForm(forms.ModelForm):
-    class Meta:
-        model = CableRun
-        fields = '__all__'
-
-class ConduitForm(forms.ModelForm):
-    class Meta:
-        model = Conduit
-        fields = '__all__'
-
-class ConduitRunForm(forms.ModelForm):
-    class Meta:
-        model = ConduitRun
-        fields = '__all__'
 

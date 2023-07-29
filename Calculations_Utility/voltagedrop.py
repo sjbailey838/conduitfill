@@ -1,0 +1,1 @@
+# Iwire (A) × (2 × L(ft) × Rwire(Ω/kft) / 1000(ft/kft))
