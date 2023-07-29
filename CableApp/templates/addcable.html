@@ -1,4 +1,4 @@
-{% extends "../users/base.html" %}
+{% extends "users/base.html" %}
 {% block title %} Home Page {% endblock title%}
 {% block content %}
 
@@ -45,7 +45,7 @@
         <tr>
             <td>{{conduit.name}} </td>
             <td>{{conduit.InnerDimension}} </td>
-            <td>{{conduit.OuterDimension}}</td>
+            <td>{{conduit.OuterDimension}}   </td>
         </tr>
         {%endfor%}
     </table>
@@ -95,12 +95,7 @@
     
             <td>{{conduit.conduittag}} </td>
             <td>{{conduit.conduit.InnerDimension}} </td>
-            <td>                
-                {%for cable in conduit.cable.all%}
-                    {{cable}}
-                {%endfor%}
-                
-            </td>
+            <td>{{conduit.cable }}</td>
         {%endfor%}
 
         <!-- {%for cable in cablelist%}
