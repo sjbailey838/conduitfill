@@ -114,7 +114,8 @@ def addCable(request):
         print(conduitruns[i].conduittag,conduitruns[i].cable.all())
         cablelist.append(conduitruns[i].cable.all()) 
     print(cablelist, "is your list of cables")
-    cablequery = conduitruns[0].cable.all()
+    if (len(conduitruns) > 0):
+        cablequery = conduitruns[0].cable.all()
     # print(conduitruns)
     # print(cablequery)
     if request.method == 'POST':
