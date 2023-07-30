@@ -5,6 +5,5 @@ urlpatterns = [
     path('', home, name='users-home'),
     path('register/', RegisterView.as_view(), name='users-register'),
     path('profile/', profile, name='users-profile'),
-    # path('addcable/', addCable, name = "add-cable")
-    path("CableApp", include("CableApp.urls"))
+    path('', include('CableApp.urls'), name = 'CableApp'),
 ]

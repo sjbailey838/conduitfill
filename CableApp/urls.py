@@ -4,6 +4,6 @@ app_name = "CableApp"
 
 urlpatterns = [
     # path('/addcable', addCable,  name='cable-home'),
-    path('addcable/', addCable, name = "add-cable")
+    path('addCable/', addCable, name = "add-cable"),
 
 ]

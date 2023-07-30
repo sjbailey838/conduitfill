@@ -24,22 +24,4 @@ class Profile(models.Model):
             img.thumbnail(new_img)
             img.save(self.avatar.path)
 
-# class CableSize(models.Model):
-#     size = models.CharField(max_length=200)
-    
-#     def __str__(self):
-#         return self.size
-
-# class JacketRating(models.Model):
-#     rating = models.CharField(max_length=200)
-        
-#     def __str__(self):
-#         return self.rating
-
-# class Conductors(models.Model):
-#     conductors = models.CharField(max_length=200)
-
-#     def __str__(self):
-#         return self.conductors
-
 
