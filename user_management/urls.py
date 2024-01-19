@@ -34,6 +34,8 @@ urlpatterns = [
 
     path('password-change/', ChangePasswordView.as_view(), name='password_change'),
 
+    path("__reload__/", include("django_browser_reload.urls")),
+
     re_path(r'^oauth/', include('social_django.urls', namespace='social')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

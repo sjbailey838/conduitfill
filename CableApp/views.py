@@ -24,6 +24,11 @@ def addCable(request):
     # cablequery = conduitruns[0].cable.all()
     # print(conduitruns)
     # print(cablequery)
+    for conduit in conduits:
+        conduit.Area = Conduit.calculate_area(conduit.InnerDimension)
+        conduit.save()
+
+        
     if request.method == 'POST':
         # print(request.POST)
         if 'addcable' in request.POST:

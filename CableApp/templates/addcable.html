@@ -18,6 +18,7 @@
             <th>Cable Size</th>
             <th>Cable Conductors</th>
             <th>Cable Rating</th>
+            <th>Cable Outer Dimension</th>
         </tr>
         {%for cable in cables%}
         <tr>
@@ -25,6 +26,7 @@
             <td>{{cable.size}} </td>
             <td>{{cable.conductors}} </td>
             <td>{{cable.rating}} </td>
+            <td>{{cable.OuterDim}} </td>
         </tr>
         {%endfor%}
     </table>
@@ -88,16 +90,20 @@
             <th>Conduit Tag</th>
             <th>Conduit Inner Dimension</th>
             <th>Cables Assigned</th>
-            <!-- <th>Cable Rating</th> -->
+            <th>Conduit Area</th>
         </tr>
         {%for conduit in conduitruns%}
         <tr>
     
             <td>{{conduit.conduittag}} </td>
             <td>{{conduit.conduit.InnerDimension}} </td>
-            <td>{{conduit.cable }}</td>
+            <td> 
+                {% for conduitrun_cable in conduit.cable.all%}
+                    {{conduitrun_cable}}    
+                {% endfor %}
+            </td>
+            <td>{{conduit.conduit.Area}}</td>
         {%endfor%}
-
         <!-- {%for cable in cablelist%}
         {%endfor%} -->
             <!-- <td>{{cable.rating}} </td> -->
