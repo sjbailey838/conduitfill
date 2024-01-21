@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Cable, Conduit, CableRun, ConduitRun
 from .forms import CableForm, ConduitForm,ConduitRunForm,CableRunForm
@@ -14,20 +14,23 @@ def addCable(request):
     cables = Cable.objects.all()
     conduitruns = ConduitRun.objects.all()
     cableruns = CableRun.objects.all()
-    print(conduitruns,"this is the cables assigned to this conduit")
-    print(cableruns,"is the cable runs")
-    cablelist = []
-    # for i in range(len((conduitruns))):
-    #     print(conduitruns[i].conduittag,conduitruns[i].cable.all())
-    #     cablelist.append(conduitruns[i].cable.all()) 
-    # print(cablelist, "is your list of cables")
-    # cablequery = conduitruns[0].cable.all()
-    # print(conduitruns)
-    # print(cablequery)
+    # print(conduitruns,"this is the cables assigned to this conduit")
+    # print(cableruns,"is the cable runs")
+    # conduitruns
     for conduit in conduits:
         conduit.Area = Conduit.calculate_area(conduit.InnerDimension)
         conduit.save()
 
+    for conduitrun in conduitruns:
+        sumlist = []
+        cablelist = conduitrun.cable.all()
+        for cable in cablelist:
+            result = 3.14*(cable.cable.OuterDimension/2)**2
+            sumlist.append(result)
+        totalcablearea = sum(sumlist)
+        conduitrun.fill = (totalcablearea / conduitrun.conduit.Area)
+
+        
         
     if request.method == 'POST':
         # print(request.POST)
@@ -51,3 +54,8 @@ def addCable(request):
             'conduitruns':conduitruns,'cableruns':cableruns,'form2':form2,'form3':form3, 'cablelist':cablelist
                }
     return render(request, 'addcable.html',context)
+
+
+@login_required
+def delete(request):
+    return render(request,'delete.html')

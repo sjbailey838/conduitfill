@@ -6,7 +6,7 @@ class Cable(models.Model): #standard cable library
     size = models.CharField(max_length=50, null=True)
     rating = models.CharField(max_length=50, null=True)
     conductors = models.CharField(max_length=50, null=True)
-    OuterDim = models.FloatField(max_length=50, null=True)
+    OuterDimension = models.FloatField(max_length=50, null=True)
         
     def __str__(self):
         return self.name
@@ -25,8 +25,8 @@ class Conduit(models.Model): #standard conduit library
     OuterDimension = models.FloatField(max_length=200, null=True)
     Area           = models.FloatField(max_length=200, null=True)
 
-    def calculate_area(innerdimension):
-        result = 3.14*innerdimension**2
+    def calculate_area(Innerdimension):
+        result = 3.14*(Innerdimension/2)**2
         return result
 
     def __str__(self):
@@ -36,9 +36,12 @@ class ConduitRun(models.Model): #project conduit
     conduittag = models.CharField(max_length=200)
     conduit = models.ForeignKey(Conduit, on_delete=models.CASCADE)
     cable = models.ManyToManyField(CableRun)
+    fill = models.FloatField(max_length=200, null=True)
 
-    def calculate_fill():
-        return fill
+    # def calculate_fill(cabledims):
+    #     cabledims
+    #     totalarea
+    #     return fillpct
 
     def __str__(self):
         return self.conduittag

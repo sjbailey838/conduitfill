@@ -14,9 +14,9 @@ class CableRunForm(forms.ModelForm):
 class ConduitForm(forms.ModelForm):
     class Meta:
         model = Conduit
-        fields = '__all__'
+        fields = ['name', 'InnerDimension', 'OuterDimension']
 
 class ConduitRunForm(forms.ModelForm):
     class Meta:
         model = ConduitRun
-        fields = '__all__'
+        fields = ['conduittag', 'conduit', 'cable']
