@@ -51,7 +51,7 @@ def addCable(request):
             if form3.is_valid():
                 form3.save()
     context = {'form':form,'form1':form1,'conduits':conduits, 'cables':cables,
-            'conduitruns':conduitruns,'cableruns':cableruns,'form2':form2,'form3':form3, 'cablelist':cablelist
+            'conduitruns':conduitruns,'cableruns':cableruns,'form2':form2,'form3':form3, 
                }
     return render(request, 'addcable.html',context)
 

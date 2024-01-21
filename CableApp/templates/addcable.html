@@ -104,13 +104,15 @@
                 {% endfor %}
             </td>
             <td>{{conduit.conduit.Area}}</td>
-            <td>{{conduit.fill}}</td>
+            <td>{{conduit.fill}}</td> 
+            <td><a href="../delete/">delete</a></td>
         {%endfor%}
+
+
         <!-- {%for cable in cablelist%}
         {%endfor%} -->
             <!-- <td>{{cable.rating}} </td> -->
             <!-- {{ forloop.counter0 }} -->
-            <a href="{% url 'delete'  %}">delete</a> 
         </tr>
 
     </table>

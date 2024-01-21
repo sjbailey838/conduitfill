@@ -7,5 +7,4 @@ urlpatterns = [
     # path('/addcable', addCable,  name='cable-home'),
     path('addCable/', addCable, name = "add-cable"),
     path('delete/', delete, name = "delete"),
-
 ]
