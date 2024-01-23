@@ -5,7 +5,7 @@
 
 {% if user.is_authenticated %}
 <form action="" method="post">
-    <h5>Step 1: Fill out your cable library</h5>
+    <h3>Step 1: Fill out your cable library</h3>
     {% csrf_token %}
     {{form}}
     <button name="addcable" value="addcable">Add Cable</button>
@@ -34,7 +34,7 @@
     </table>
     <br>
     <form action="" method="post">
-        <h5>Step 2: Fill out your conduit library</h5>
+        <h3>Step 2: Fill out your conduit library</h3>
         {% csrf_token %}
         {{form1}}
         <button name="addconduit" value="addconduit">Add Conduit</button>
@@ -57,7 +57,7 @@
     </table>
     <br>
     <form action="" method="post">
-        <h5>Step 3: assign project cables from your standard library</h5>
+        <h3>Step 3: assign project cables from your standard library</h3>
         {% csrf_token %}
         {{form2}}
         <button name="projectcable" value="projectcable">Add Project Cable</button>
@@ -75,7 +75,6 @@
         </tr>
         {%for cable in cableruns%}
         <tr>
-            <td>{{cable.id}} </td>
             <td>{{cable.cabletag}} </td>
             <td>{{cable.length}} </td>
             <td>{{cable.cable.name}} </td>
@@ -88,7 +87,7 @@
     </table>
     <br>
     <form action="" method="post">
-        <h5>Step 4: assign project conduits and designate which cables are inside</h5>
+        <h3>Step 4: assign project conduits and designate which cables are inside</h3>
         {% csrf_token %}
         {{form3}}
         <button name="projectconduit" value="projectconduit">Add Project Conduit</button>
