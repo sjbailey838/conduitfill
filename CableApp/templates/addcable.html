@@ -1,17 +1,18 @@
-{% extends "users/base.html" %}
+<!-- {% extends "./base.html" %} -->
 {% block title %} Home Page {% endblock title%}
 {% block content %}
 
 
 {% if user.is_authenticated %}
 <form action="" method="post">
+    <h5>Step 1: Fill out your cable library</h5>
     {% csrf_token %}
     {{form}}
     <button name="addcable" value="addcable">Add Cable</button>
 </form>   
-    <div>
-        <br>
-        <h5>These are the standard library cables</h5>
+<div>
+    <br>
+    <h5>These are the standard library cables</h5>
     <table border="1">
         <tr>
             <th>Cable Name</th>
@@ -27,16 +28,18 @@
             <td>{{cable.conductors}} </td>
             <td>{{cable.rating}} </td>
             <td>{{cable.OuterDimension}} </td>
+            <td><a href="{% url 'CableApp:deleteCable' cable.id %}"class="nav-item nav-link">delete</a></td>
         </tr>
         {%endfor%}
     </table>
     <br>
     <form action="" method="post">
+        <h5>Step 2: Fill out your conduit library</h5>
         {% csrf_token %}
         {{form1}}
         <button name="addconduit" value="addconduit">Add Conduit</button>
     </form>  
-    <h5>These are the standard library conduit</h5>
+    <h5>These are the standard library conduits</h5>
     <table border="1">
         <tr>
             <th>Conduit Part Number</th>
@@ -48,11 +51,13 @@
             <td>{{conduit.name}} </td>
             <td>{{conduit.InnerDimension}} </td>
             <td>{{conduit.OuterDimension}}   </td>
+            <td><a href="{% url 'CableApp:deleteConduit' conduit.id %}"class="nav-item nav-link">delete</a></td>
         </tr>
         {%endfor%}
     </table>
     <br>
     <form action="" method="post">
+        <h5>Step 3: assign project cables from your standard library</h5>
         {% csrf_token %}
         {{form2}}
         <button name="projectcable" value="projectcable">Add Project Cable</button>
@@ -60,6 +65,7 @@
     <h5>These are your project cables</h5>
     <table border="1">
         <tr>
+            <th>Cable ID</th>
             <th>Cable Tag</th>
             <th>Cable Length</th>
             <th>Cable Name</th>
@@ -69,17 +75,20 @@
         </tr>
         {%for cable in cableruns%}
         <tr>
+            <td>{{cable.id}} </td>
             <td>{{cable.cabletag}} </td>
             <td>{{cable.length}} </td>
             <td>{{cable.cable.name}} </td>
             <td>{{cable.cable.size}} </td>
             <td>{{cable.cable.rating}} </td>
             <td>{{cable.cable.conductors}} </td>
+            <td><a href="{% url 'CableApp:deleteCableRun' cable.id %}"class="nav-item nav-link">delete</a></td>
         </tr>
         {%endfor%}
     </table>
     <br>
     <form action="" method="post">
+        <h5>Step 4: assign project conduits and designate which cables are inside</h5>
         {% csrf_token %}
         {{form3}}
         <button name="projectconduit" value="projectconduit">Add Project Conduit</button>
@@ -105,7 +114,7 @@
             </td>
             <td>{{conduit.conduit.Area}}</td>
             <td>{{conduit.fill}}</td> 
-            <td><a href="../delete/">delete</a></td>
+            <td><a href="{% url 'CableApp:deleteConduitRun' conduit.id %}"class="nav-item nav-link">delete</a></td>
         {%endfor%}
 
 

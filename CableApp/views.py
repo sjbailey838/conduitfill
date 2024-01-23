@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Cable, Conduit, CableRun, ConduitRun
 from .forms import CableForm, ConduitForm,ConduitRunForm,CableRunForm
+from django.urls import reverse
 
 # Create your views here.
 @login_required
@@ -17,18 +18,6 @@ def addCable(request):
     # print(conduitruns,"this is the cables assigned to this conduit")
     # print(cableruns,"is the cable runs")
     # conduitruns
-    for conduit in conduits:
-        conduit.Area = Conduit.calculate_area(conduit.InnerDimension)
-        conduit.save()
-
-    for conduitrun in conduitruns:
-        sumlist = []
-        cablelist = conduitrun.cable.all()
-        for cable in cablelist:
-            result = 3.14*(cable.cable.OuterDimension/2)**2
-            sumlist.append(result)
-        totalcablearea = sum(sumlist)
-        conduitrun.fill = (totalcablearea / conduitrun.conduit.Area)
 
         
         
@@ -50,6 +39,20 @@ def addCable(request):
             form3 = ConduitRunForm(request.POST)
             if form3.is_valid():
                 form3.save()
+
+    for conduit in conduits:
+        conduit.Area = Conduit.calculate_area(conduit.InnerDimension)
+        conduit.save()
+
+    for conduitrun in conduitruns:
+        sumlist = []
+        cablelist = conduitrun.cable.all()
+        for cable in cablelist:
+            result = 3.14*(cable.cable.OuterDimension/2)**2
+            sumlist.append(result)
+        totalcablearea = sum(sumlist)
+        conduitrun.fill = (totalcablearea / conduitrun.conduit.Area)
+
     context = {'form':form,'form1':form1,'conduits':conduits, 'cables':cables,
             'conduitruns':conduitruns,'cableruns':cableruns,'form2':form2,'form3':form3, 
                }
@@ -57,5 +60,45 @@ def addCable(request):
 
 
 @login_required
-def delete(request):
-    return render(request,'delete.html')
+def deleteConduitRun(request, id):
+    try:
+        rtd = ConduitRun.objects.get(pk=id)
+        rtd.delete()
+        return redirect(reverse('CableApp:add-cable'))
+    except ConduitRun.DoesNotExist:
+        print("ohno")
+        return redirect(reverse('CableApp:add-cable'))
+
+@login_required
+def deleteCableRun(request, id):
+    try:
+        rtd = CableRun.objects.get(pk=id)
+        rtd.delete()
+        return redirect(reverse('CableApp:add-cable'))
+        # context = {'id':id,}
+    except CableRun.DoesNotExist:
+        print("ohno")
+        return redirect(reverse('CableApp:add-cable'))
+
+@login_required
+def deleteConduit(request, id):
+    try:
+        rtd = Conduit.objects.get(pk=id)
+        rtd.delete()
+        return redirect(reverse('CableApp:add-cable'))
+        # context = {'id':id,}
+    except Conduit.DoesNotExist:
+        print("ohno")
+        return redirect(reverse('CableApp:add-cable'))
+    
+@login_required
+def deleteCable(request, id):
+    try:
+        rtd = Cable.objects.get(pk=id)
+        rtd.delete()
+        return redirect(reverse('CableApp:add-cable'))
+        # context = {'id':id,}
+    except Cable.DoesNotExist:
+        print("ohno")
+        return redirect(reverse('CableApp:add-cable'))
+
